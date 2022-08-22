@@ -1,0 +1,41 @@
+server:
+  port: 9191
+
+
+spring:
+  application:
+    name: ApiGateway
+  cloud:
+    gateway:
+      routes:
+        - id: WordCounter
+          uri: lb://WordCounter
+          predicates:
+            - Path=/wordCounter/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: wordCounterCircuitBreaker
+                fallbackUri: forward:/fallback/wordCounterServiceFallback
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+
+management:
+  health:
+    circuitbreakers:
+    enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: always

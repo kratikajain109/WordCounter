@@ -2,6 +2,7 @@ package synechron.word;
 
 import com.synechron.translator.TranslatorService;
 import com.synechron.word.WordCounterService;
+import com.synechron.word.WordCounterServiceImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,7 @@ public class WordCounterServiceTest {
 
     @Before
     public void setUp() {
-        wordCounter = new WordCounterService(translatorService);
+        wordCounter = new WordCounterServiceImpl(translatorService);
     }
 
     @Test
